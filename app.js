@@ -1,12 +1,13 @@
 document.getElementById('appointmentForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
-    // Obtener los valores del formulario
-    const identifierSystem = document.getElementById('identifierSystem').value;
-    const identifierValue = document.getElementById('identifierValue').value;
-    const status = document.getElementById('status').value;
+    // Obtener valores del formulario
+    const status = document.getElementById('appointmentStatus').value;
     const startDateTime = document.getElementById('startDateTime').value;
     const endDateTime = document.getElementById('endDateTime').value;
+    const identifierSystem = document.getElementById('identifierSystem').value;
+    const identifierValue = document.getElementById('identifierValue').value;
+
     const participantType = document.getElementById('participantType').value;
     const participantActor = document.getElementById('participantActor').value;
 
@@ -14,15 +15,17 @@ document.getElementById('appointmentForm').addEventListener('submit', function(e
     const appointment = {
         resourceType: "Appointment",
         status: status,
-        start: startDateTime,
-        end: endDateTime,
+        start: new Date(startDateTime).toISOString(),
+        end: new Date(endDateTime).toISOString(),
         identifier: [{
             system: identifierSystem,
             value: identifierValue
         }],
         participant: [{
             type: [{ text: participantType }],
-            actor: { display: participantActor }
+            actor: {
+                display: participantActor
+            }
         }]
     };
 
@@ -36,14 +39,15 @@ document.getElementById('appointmentForm').addEventListener('submit', function(e
     })
     .then(response => response.json())
     .then(data => {
-        console.log('Success:', data);
-        alert('Cita médica creada exitosamente!');
+        console.log('Éxito:', data);
+        alert('¡Cita creada exitosamente!');
     })
     .catch((error) => {
         console.error('Error:', error);
-        alert('Hubo un error al crear la cita médica.');
+        alert('Hubo un error al crear la cita.');
     });
 });
+
 
 
 
