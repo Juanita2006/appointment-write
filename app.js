@@ -1,45 +1,29 @@
 document.getElementById('appointmentForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
-    // Obtener valores del formulario
-    const status = document.getElementById('appointmentStatus').value;
-    const startDateTime = document.getElementById('startDateTime').value;
-    const endDateTime = document.getElementById('endDateTime').value;
+    // Obtener los valores del formulario
     const identifierSystem = document.getElementById('identifierSystem').value;
     const identifierValue = document.getElementById('identifierValue').value;
-
-    const patientReference = document.getElementById('patientReference').value;
-    const patientDisplay = document.getElementById('patientDisplay').value;
-
-    const practitionerReference = document.getElementById('practitionerReference').value;
-    const practitionerDisplay = document.getElementById('practitionerDisplay').value;
+    const status = document.getElementById('status').value;
+    const startDateTime = document.getElementById('startDateTime').value;
+    const endDateTime = document.getElementById('endDateTime').value;
+    const participantType = document.getElementById('participantType').value;
+    const participantActor = document.getElementById('participantActor').value;
 
     // Crear el objeto Appointment en formato FHIR
     const appointment = {
         resourceType: "Appointment",
         status: status,
-        start: new Date(startDateTime).toISOString(),
-        end: new Date(endDateTime).toISOString(),
+        start: startDateTime,
+        end: endDateTime,
         identifier: [{
             system: identifierSystem,
             value: identifierValue
         }],
-        participant: [
-            {
-                actor: {
-                    reference: patientReference,
-                    display: patientDisplay
-                },
-                status: "accepted"
-            },
-            {
-                actor: {
-                    reference: practitionerReference,
-                    display: practitionerDisplay
-                },
-                status: "accepted"
-            }
-        ]
+        participant: [{
+            type: [{ text: participantType }],
+            actor: { display: participantActor }
+        }]
     };
 
     // Enviar los datos usando Fetch API
@@ -53,10 +37,11 @@ document.getElementById('appointmentForm').addEventListener('submit', function(e
     .then(response => response.json())
     .then(data => {
         console.log('Success:', data);
-        alert('¡Cita creada exitosamente!');
+        alert('Cita médica creada exitosamente!');
     })
     .catch((error) => {
         console.error('Error:', error);
-        alert('Hubo un error al crear la cita.');
+        alert('Hubo un error al crear la cita médica.');
     });
 });
+
