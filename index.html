@@ -2,45 +2,52 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Formulario de Cita (Appointment) HL7 FHIR</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Cita Médica HL7 FHIR</title>
 </head>
 <body>
-    <h1>Formulario de Cita HL7 FHIR</h1>
+    <h1>Formulario de Cita Médica HL7 FHIR</h1>
     <form id="appointmentForm">
-        <label for="appointmentStatus">Estado de la cita:</label>
-        <select id="appointmentStatus" name="appointmentStatus" required>
-            <option value="proposed">Propuesta</option>
-            <option value="pending">Pendiente</option>
-            <option value="booked">Reservada</option>
-            <option value="arrived">Llegó</option>
-            <option value="fulfilled">Cumplida</option>
-            <option value="cancelled">Cancelada</option>
-            <option value="noshow">No asistió</option>
-            <option value="entered-in-error">Error de ingreso</option>
+        
+        <label for="identifierSystem">Tipo de Documento:</label>
+        <select id="identifierSystem" name="identifierSystem" required>
+            <option value="http://cedula">Cédula de ciudadanía</option>
+            <option value="http://pasaporte">Pasaporte</option>
         </select><br><br>
 
-        <label for="startDateTime">Fecha y hora de inicio:</label>
-        <input type="datetime-local" id="startDateTime" name="startDateTime" required><br><br>
-
-        <label for="endDateTime">Fecha y hora de finalización:</label>
-        <input type="datetime-local" id="endDateTime" name="endDateTime" required><br><br>
-
-        <label for="identifierSystem">Sistema del identificador:</label>
-        <input type="text" id="identifierSystem" name="identifierSystem" value="http://hospital.jyi.org/appointment-id" required><br><br>
-
-        <label for="identifierValue">Valor del identificador:</label>
+        <label for="identifierValue">Número de Documento:</label>
         <input type="text" id="identifierValue" name="identifierValue" required><br><br>
 
-        <label for="participantType">Tipo de participante:</label>
-        <input type="text" id="participantType" name="participantType" placeholder="Ej: Patient, Practitioner" required><br><br>
+        <label for="status">Estado de la Cita:</label>
+        <select id="status" name="status" required>
+            <option value="booked">Reservado</option>
+            <option value="arrived">Llegó</option>
+            <option value="fulfilled">Completado</option>
+            <option value="cancelled">Cancelado</option>
+            <option value="noshow">No Asistió</option>
+        </select><br><br>
 
-        <label for="participantActor">Nombre del participante:</label>
-        <input type="text" id="participantActor" name="participantActor" placeholder="Ej: Juanita Trujillo" required><br><br>
+        <label for="startDateTime">Fecha y Hora de Inicio:</label>
+        <input type="datetime-local" id="startDateTime" name="startDateTime" required><br><br>
 
-        <button type="submit">Crear Cita</button>
+        <label for="endDateTime">Fecha y Hora de Fin:</label>
+        <input type="datetime-local" id="endDateTime" name="endDateTime" required><br><br>
+
+        <label for="participantType">Rol del Participante:</label>
+        <select id="participantType" name="participantType" required>
+            <option value="patient">Paciente</option>
+            <option value="practitioner">Médico</option>
+            <option value="related-person">Familiar</option>
+        </select><br><br>
+
+        <label for="participantActor">Nombre del Participante:</label>
+        <input type="text" id="participantActor" name="participantActor" required><br><br>
+
+        <button type="submit">Enviar</button>
     </form>
 
     <script src="app.js"></script>
 </body>
 </html>
+
 
