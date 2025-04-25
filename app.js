@@ -12,21 +12,28 @@ document.getElementById('appointmentForm').addEventListener('submit', function(e
 
     // Crear el objeto Appointment en formato FHIR
 const appointment = {
-        resourceType: "Appointment",
-        status: status,
-        start: startDateTime,
-        end: endDateTime,
-        identifier: [{
-            system: identifierSystem,
-            value: identifierValue
-        }],
-        participant: [{
-            actor: {display: participantActor,
-                    reference: patientId
-            },
-            status: status, 
-        }]
-    };      
+  "resourceType": "Encounter",
+  "status": "status",  // Estado dinámico
+  "identifier": [
+    {
+      "system": "identifierSystem",  // Sistema dinámico
+      "value": "identifierValue"  // Valor dinámico
+    }
+  ],
+  "subject": {
+    "reference": "Patient/patientId"  // ID de paciente dinámico
+  },
+  "participant": [
+    {
+      "type": [
+        {
+          "text": "participantType"  // Tipo de participante dinámico
+        }
+      ]
+    }
+  ]
+}
+   
 
     // Enviar los datos usando Fetch API
     fetch('https://hl7-fhir-ehr-juanita-123.onrender.com/appointment', {
